@@ -28,11 +28,17 @@ with st.sidebar:
     st.header("⚙️ Settings")
     api_key = st.text_input("Enter Google Gemini API Key:", type="password")
     
-    model_name = st.selectbox(
+        model_name = st.selectbox(
         "Select AI Model:",
-        ["gemini-1.5-pro", "gemini-1.5-flash"],
+        [
+            "gemini-3.8-flash",
+            "gemini-3.7-flash",
+            "gemini-3.5-flash",
+            "gemini-3.1-pro-preview",
+            "gemini-2.5-pro"
+        ],
         index=0,
-        help="Pro model is recommended for better reasoning and subtitle context."
+        help="Pro models are recommended for deep reasoning. Flash models are for fast translation."
     )
     
     st.markdown("---")
