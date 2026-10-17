@@ -42,6 +42,15 @@ with st.sidebar:
     )
     
     st.markdown("---")
+    # Character Name Policy Toggle
+    name_policy = st.radio(
+        "👤 Character Names:",
+        ("Keep in English", "Translate to Burmese"),
+        index=0,
+        help="Choose whether to keep names in English or transliterate them into Burmese."
+    )
+    
+    st.markdown("---")
     st.markdown("""
 **Active Rules:**
 - ✅ Dynamic Context Adaptation
@@ -56,7 +65,10 @@ with st.sidebar:
 # ==========================================
 # 4. System Prompt & Rules
 # ==========================================
-SYSTEM_PROMPT = """
+# Dynamically adjust the prompt based on the user's choice for character names
+name_instruction = "Keep character names in English or their original language. DO NOT translate them into Burmese." if name_policy == "Keep in English" else "Transliterate character names naturally into Burmese script (e.g., John -> ဂျွန်, Naruto -> နာရူတို)."
+
+SYSTEM_PROMPT = f"""
 Role: You are "MM Channel AI Subtitles", an advanced multilingual Burmese Subtitle Translator.
 
 1. MULTILINGUAL TRANSLATION SUPPORT:
@@ -75,12 +87,15 @@ Automatically adapt the translation tone, style, and terminology based on the co
 - Zero Punctuation: NEVER include punctuation marks (။, ၊, ?, !) in any subtitle line.
 - Universal 2-Speaker Split: Automatically split long sentences for two speakers appropriately.
 - TIMECODE PRESERVATION: You MUST strictly keep the original timestamps (e.g., 00:00:00,000 --> 00:00:00,000) and subtitle sequence numbers exactly as they are. DO NOT change, translate, or remove the timecodes.
+
+5. CHARACTER NAMES RULE:
+- {name_instruction}
 """
 
 # ==========================================
 # 5. Helper Functions
 # ==========================================
-def chunk_srt(srt_content, chunk_size=20):
+def chunk_srt(srt_content, chunk_size=50):
     blocks = srt_content.strip().split('\n\n')
     return [blocks[i:i + chunk_size] for i in range(0, len(blocks), chunk_size)]
 
@@ -137,7 +152,7 @@ if uploaded_file is not None:
                 final_output.append(response.text)
                 
                 progress_bar.progress((i + 1) / len(chunks))
-                time.sleep(1) # Rate limit protection
+                time.sleep(0.3) # Rate limit protection
                 
             if not st.session_state.stop_requested:
                 st.session_state.translated_text = "\n\n".join(final_output)
@@ -161,9 +176,4 @@ if st.session_state.translated_text:
     new_filename = uploaded_file.name.replace(f".{file_extension}", f"_MM.{file_extension}")
     
     st.download_button(
-        label="💾 Download Translated File",
-        data=st.session_state.translated_text,
-        file_name=new_filename,
-        mime="text/plain",
-        use_container_width=True
-    )
+        
