@@ -40,7 +40,6 @@ model_name = st.selectbox(
         index=0,
         help="Pro models are recommended for deep reasoning. Flash models are for fast translation."
     )
-    
     st.markdown("---")
     st.markdown("""
     **Active Rules:**
