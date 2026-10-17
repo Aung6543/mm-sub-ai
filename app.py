@@ -49,6 +49,7 @@ with st.sidebar:
 - ✅ Zero Punctuation (No ။, ၊, ?, !)
 - ✅ Auto Brackets (...) [...] Cleaning
 - ✅ Universal 2-Speaker Split
+- ✅ Keep Original Timecodes (100% Strict)
 - ✅ Hidden Output Until Completed
     """)
 
@@ -73,7 +74,7 @@ Automatically adapt the translation tone, style, and terminology based on the co
 - 100% Spoken Burmese: Use natural conversational movie Burmese (ပြောစကားပုံစံ).
 - Zero Punctuation: NEVER include punctuation marks (။, ၊, ?, !) in any subtitle line.
 - Universal 2-Speaker Split: Automatically split long sentences for two speakers appropriately.
-- Format Preservation: Strictly preserve .srt or .ass timestamps.
+- TIMECODE PRESERVATION: You MUST strictly keep the original timestamps (e.g., 00:00:00,000 --> 00:00:00,000) and subtitle sequence numbers exactly as they are. DO NOT change, translate, or remove the timecodes.
 """
 
 # ==========================================
