@@ -176,4 +176,9 @@ if st.session_state.translated_text:
     new_filename = uploaded_file.name.replace(f".{file_extension}", f"_MM.{file_extension}")
     
     st.download_button(
-        
+        label="💾 Download Translated File",
+        data=st.session_state.translated_text,
+        file_name=new_filename,
+        mime="text/plain",
+        use_container_width=True
+    )
