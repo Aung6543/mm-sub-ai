@@ -27,8 +27,8 @@ if "stop_requested" not in st.session_state:
 with st.sidebar:
     st.header("⚙️ Settings")
     api_key = st.text_input("Enter Google Gemini API Key:", type="password")
-    
-        model_name = st.selectbox(
+
+model_name = st.selectbox(
         "Select AI Model:",
         [
             "gemini-3.8-flash",
